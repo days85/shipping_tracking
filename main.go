@@ -8,8 +8,11 @@ import (
     "os"
     "os/signal"
     "syscall"
+	`time`
 
-	`github.com/days85/shipping_tracking/tracking`
+	cargo `github.com/days85/shipping_cargo`
+	location `github.com/days85/shipping_location`
+	"github.com/days85/shipping_tracking/tracking"
 	stdprometheus "github.com/prometheus/client_golang/prometheus"
     "github.com/prometheus/client_golang/prometheus/promhttp"
 
@@ -46,6 +49,9 @@ func main() {
 		cargos         = inmem.NewCargoRepository()
 		handlingEvents = inmem.NewHandlingEventRepository()
 	)
+
+	// Facilitate testing by adding some cargos.
+	storeTestData(cargos)
 
 	fieldKeys := []string{"method"}
 
@@ -113,4 +119,24 @@ func envString(env, fallback string) string {
 		return fallback
 	}
 	return e
+}
+
+func storeTestData(r cargo.Repository) {
+	test1 := cargo.New("FTL456", cargo.RouteSpecification{
+		Origin:          location.AUMEL,
+		Destination:     location.SESTO,
+		ArrivalDeadline: time.Now().AddDate(0, 0, 7),
+	})
+	if err := r.Store(test1); err != nil {
+		panic(err)
+	}
+
+	test2 := cargo.New("ABC123", cargo.RouteSpecification{
+		Origin:          location.SESTO,
+		Destination:     location.CNHKG,
+		ArrivalDeadline: time.Now().AddDate(0, 0, 14),
+	})
+	if err := r.Store(test2); err != nil {
+		panic(err)
+	}
 }

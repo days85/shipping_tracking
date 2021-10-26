@@ -6,6 +6,7 @@ require github.com/days85/shipping_cargo v0.0.1
 
 require (
 	github.com/days85/shipping_inmem v0.0.1
+	github.com/days85/shipping_location v0.0.1
 	github.com/days85/shipping_routing v0.0.1
 	github.com/go-kit/kit v0.12.0
 	github.com/gorilla/mux v1.8.0
@@ -16,7 +17,6 @@ require (
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
-	github.com/days85/shipping_location v0.0.1 // indirect
 	github.com/days85/shipping_voyage v0.0.1 // indirect
 	github.com/go-kit/log v0.2.0 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
